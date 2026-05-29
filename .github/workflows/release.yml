@@ -1,0 +1,39 @@
+name: Release
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore WakeLock.slnx
+
+      - name: Build
+        run: dotnet build WakeLock.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test WakeLock.slnx --configuration Release --no-build
+
+      - name: Pack
+        run: dotnet pack WakeLock.slnx --configuration Release --no-build -o ./artifacts
+
+      - name: Push to NuGet
+        run: dotnet nuget push "./artifacts/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source "https://api.nuget.org/v3/index.json" --skip-duplicate
