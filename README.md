@@ -10,6 +10,9 @@
 
 Cross-platform .NET wake lock libraries for preventing system sleep and, optionally, display sleep.
 
+![WakeLock Use Case (AI Generated)](./assets/wakelock-use-case-doodle.jpg)  
+AI Generated: WakeLock Use Case Doodle
+
 ## Examples
 
 <details>
@@ -72,13 +75,12 @@ using var handle = wakeLock.Acquire(WakeLockLevel.PreventSleep);
 
 </details>
 
-## Notes
-
-- Keep the returned handle alive as long as you want the wake lock active.
-- Dispose the handle to release one acquisition.
-- Dispose the service to release all active acquisitions.
-- Use `WakeLockLevel.PreventSleepAndDisplay` if display sleep should be prevented too.
-- Use [`Capjan.WakeLock.Abstractions`](https://www.nuget.org/packages/Capjan.WakeLock.Abstractions) if you only want the shared API (`IWakeLockService`, `WakeLockLevel`).
+> [!NOTE]
+> - Keep the returned handle alive as long as you want the wake lock active.
+> - Dispose the handle to release one acquisition.
+> - Dispose the service to release all active acquisitions.
+> - Use `WakeLockLevel.PreventSleepAndDisplay` if display sleep should be prevented too.
+> - Use [`Capjan.WakeLock.Abstractions`](https://www.nuget.org/packages/Capjan.WakeLock.Abstractions) if you only want the shared API (`IWakeLockService`, `WakeLockLevel`).
 
 ## Building
 
