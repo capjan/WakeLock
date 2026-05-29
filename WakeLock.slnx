@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="Capjan.WakeLock.Abstractions/Capjan.WakeLock.Abstractions.csproj" />
+  <Project Path="Capjan.WakeLock.Linux/Capjan.WakeLock.Linux.csproj" />
+  <Project Path="Capjan.WakeLock.Linux.Tests/Capjan.WakeLock.Linux.Tests.csproj" />
+  <Project Path="Capjan.WakeLock.MacOS/Capjan.WakeLock.MacOS.csproj" />
+  <Project Path="Capjan.WakeLock.MacOS.Tests/Capjan.WakeLock.MacOS.Tests.csproj" />
+  <Project Path="Capjan.WakeLock.Windows/Capjan.WakeLock.Windows.csproj" />
+  <Project Path="Capjan.WakeLock.Windows.Tests/Capjan.WakeLock.Windows.Tests.csproj" />
+</Solution>

@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  release:
+    types: [published]
+
+jobs:
+  build-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore WakeLock.slnx
+
+      - name: Build
+        run: dotnet build WakeLock.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test WakeLock.slnx --configuration Release --no-build
+
+  pack:
+    if: github.event_name != 'release'
+    needs: build-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore WakeLock.slnx
+
+      - name: Build
+        run: dotnet build WakeLock.slnx --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack WakeLock.slnx --configuration Release --no-build -o ./artifacts
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: artifacts/*.nupkg
+
+  publish:
+    if: github.event_name == 'release'
+    needs: build-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore WakeLock.slnx
+
+      - name: Build
+        run: dotnet build WakeLock.slnx --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack WakeLock.slnx --configuration Release --no-build -o ./artifacts
+
+      - name: Push to NuGet
+        run: dotnet nuget push "./artifacts/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source "https://api.nuget.org/v3/index.json" --skip-duplicate

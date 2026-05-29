@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Capjan.WakeLock</RootNamespace>
+    <AssemblyName>Capjan.WakeLock.Abstractions</AssemblyName>
+    <PackageId>Capjan.WakeLock.Abstractions</PackageId>
+    <Authors>Work</Authors>
+    <Description>Abstractions for acquiring wake locks that prevent system sleep or display sleep.</Description>
+    <PackageTags>wakelock;sleep;display;power-management</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

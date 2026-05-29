@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=502de611_002D5550_002D445a_002Db266_002Df8e40594fd0c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="WindowsWakeLockServiceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::55BD27B4-336D-DE2D-7184-093EED5299DC::net10.0::Capjan.WakeLock.Windows.Tests.WindowsWakeLockServiceTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::6D9E2207-B0AC-0E60-4241-B0C1984F56C1::net10.0::Capjan.WakeLock.MacOS.Tests.MacOSWakeLockServiceTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::3934EBD9-DD31-47A2-2DF4-49A55C607DBA::net10.0::Capjan.WakeLock.Linux.Tests.LinuxWakeLockServiceTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
