@@ -10,12 +10,14 @@
     <Authors>Work</Authors>
     <Description>Abstractions for acquiring wake locks that prevent system sleep or display sleep.</Description>
     <PackageTags>wakelock;sleep;display;power-management</PackageTags>
+    <PackageIcon>icon.jpg</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="icon.jpg" Pack="true" PackagePath="\" />
     <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
