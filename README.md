@@ -1,28 +1,53 @@
 # WakeLock
 
-Small .NET wake lock packages for preventing system sleep or display sleep.
+Cross-platform .NET wake lock libraries for preventing system sleep and, optionally, display sleep.
 
 ## Packages
 
-- `WakeLock.Abstractions`: shared API
-- `WakeLock.Linux`: Linux implementation using `systemd-inhibit`
-- `WakeLock.Windows`: Windows implementation using `SetThreadExecutionState`
-- `WakeLock.MacOS`: macOS implementation using `caffeinate`
+- `Capjan.WakeLock.Abstractions`: shared API (`IWakeLockService`, `WakeLockLevel`)
+- `Capjan.WakeLock.Windows`: Windows implementation via `SetThreadExecutionState`
+- `Capjan.WakeLock.MacOS`: macOS implementation via `caffeinate`
+- `Capjan.WakeLock.Linux`: Linux implementation via `systemd-inhibit`
 
-## Usage
+## Wake Lock Levels
+
+- `WakeLockLevel.PreventSleep`: keep system awake
+- `WakeLockLevel.PreventSleepAndDisplay`: keep system and display awake (platform-dependent behavior)
+
+## Examples
+
+### Windows
 
 ```csharp
 using Capjan.WakeLock;
 
 var wakeLock = new WindowsWakeLockService();
-
 using var handle = wakeLock.Acquire(WakeLockLevel.PreventSleep);
 ```
 
-On macOS, use `MacOSWakeLockService` instead.
-On Linux, use `LinuxWakeLockService` instead.
+### macOS
 
-Use `WakeLockLevel.PreventSleepAndDisplay` when the display should stay awake too.
+```csharp
+using Capjan.WakeLock;
+
+var wakeLock = new MacOSWakeLockService();
+using var handle = wakeLock.Acquire(WakeLockLevel.PreventSleepAndDisplay);
+```
+
+### Linux
+
+```csharp
+using Capjan.WakeLock;
+
+var wakeLock = new LinuxWakeLockService();
+using var handle = wakeLock.Acquire(WakeLockLevel.PreventSleepAndDisplay);
+```
+
+## Notes
+
+- Keep the returned handle alive as long as you want the wake lock active.
+- Dispose the handle to release one acquisition.
+- Dispose the service to release all active acquisitions.
 
 ## Building
 
