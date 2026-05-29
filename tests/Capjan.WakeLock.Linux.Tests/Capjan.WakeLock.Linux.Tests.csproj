@@ -14,6 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Capjan.WakeLock.Linux\Capjan.WakeLock.Linux.csproj" />
+    <ProjectReference Include="..\..\src\Capjan.WakeLock.Linux\Capjan.WakeLock.Linux.csproj" />
   </ItemGroup>
 </Project>
