@@ -88,3 +88,7 @@ using var handle = wakeLock.Acquire(WakeLockLevel.PreventSleep);
 dotnet build WakeLock.slnx
 dotnet pack WakeLock.slnx --configuration Release
 ```
+
+## License
+
+Permissive MIT license (see [LICENSE](./LICENSE)) that allows commercial and open-source use with minimal obligations.

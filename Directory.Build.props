@@ -4,6 +4,10 @@
     <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(IsPackable)' == 'true'">
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MinVer" Version="6.0.0" PrivateAssets="all" />
   </ItemGroup>
