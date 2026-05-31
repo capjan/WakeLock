@@ -13,6 +13,22 @@ Cross-platform .NET wake lock libraries for preventing system sleep and, optiona
 ![WakeLock Use Case (AI Generated)](./assets/wakelock-use-case-doodle.jpg)  
 AI Generated: WakeLock Use Case Doodle
 
+## 2-Min Setup (dotnet tool)
+
+Install:
+
+```bash
+dotnet tool install --global Capjan.WakeLock.Tool
+```
+
+Run:
+
+```bash
+wakelock
+```
+
+The tool acquires a wake lock, prints the timestamp, and releases it on the next key press.
+
 ## Examples
 
 <details>
@@ -88,6 +104,13 @@ using var handle = wakeLock.Acquire(WakeLockLevel.PreventSleep);
 dotnet build WakeLock.slnx
 dotnet pack WakeLock.slnx --configuration Release
 ```
+
+## Release Policy
+
+- All packable projects in this repository (libraries and `Capjan.WakeLock.Tool`) must share one identical version.
+- Versioning is derived from the Git tag via MinVer (`v<semver>` tags).
+- Releases are published from one repository release so all NuGet artifacts stay aligned.
+- CI enforces version consistency across all packable projects.
 
 ## License
 

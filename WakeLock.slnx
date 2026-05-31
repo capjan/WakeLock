@@ -6,4 +6,5 @@
   <Project Path="tests/Capjan.WakeLock.MacOS.Tests/Capjan.WakeLock.MacOS.Tests.csproj" />
   <Project Path="src/Capjan.WakeLock.Windows/Capjan.WakeLock.Windows.csproj" />
   <Project Path="tests/Capjan.WakeLock.Windows.Tests/Capjan.WakeLock.Windows.Tests.csproj" />
+  <Project Path="samples/Capjan.WakeLock.Tool/Capjan.WakeLock.Tool.csproj" />
 </Solution>

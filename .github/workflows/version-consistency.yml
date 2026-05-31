@@ -1,0 +1,71 @@
+name: Version Consistency
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  verify-version-consistency:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Verify same version for all packable projects
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          $projects = Get-ChildItem -Path . -Recurse -Filter *.csproj | Sort-Object FullName
+          $packableProjects = @()
+
+          foreach ($project in $projects) {
+            $projectPath = $project.FullName
+            $isPackable = (dotnet msbuild $projectPath -nologo -getProperty:IsPackable).Trim()
+
+            if ($isPackable -eq 'true') {
+              $resolvedVersion = (dotnet msbuild $projectPath -nologo -getProperty:Version).Trim()
+              if ([string]::IsNullOrWhiteSpace($resolvedVersion)) {
+                throw "Could not resolve Version for $projectPath"
+              }
+
+              $relativePath = [System.IO.Path]::GetRelativePath($PWD.Path, $projectPath)
+              $packableProjects += [PSCustomObject]@{
+                Project = $relativePath
+                Version = $resolvedVersion
+              }
+            }
+          }
+
+          if ($packableProjects.Count -eq 0) {
+            throw 'No packable projects found. Version consistency check cannot run.'
+          }
+
+          Write-Host 'Resolved versions for packable projects:'
+          foreach ($entry in $packableProjects) {
+            Write-Host "- $($entry.Project): $($entry.Version)"
+          }
+
+          $distinctVersions = $packableProjects | Select-Object -ExpandProperty Version -Unique
+          if ($distinctVersions.Count -ne 1) {
+            Write-Host ''
+            Write-Host 'Version mismatch detected:'
+            $packableProjects | Sort-Object Version, Project | Format-Table -AutoSize | Out-String | Write-Host
+            throw "Expected a single shared version, but found $($distinctVersions.Count): $($distinctVersions -join ', ')"
+          }
+
+          Write-Host "All packable projects share version $($distinctVersions[0])."
