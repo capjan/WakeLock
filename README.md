@@ -84,10 +84,12 @@ using var handle = wakeLock.Acquire(WakeLockLevel.PreventSleep);
 
 ## Samples
 
-Source: [`samples/Capjan.WakeLock.Tool`](./samples/Capjan.WakeLock.Tool)
-
 <details>
-<summary><strong>.NET tool</strong></summary>
+<summary><strong>.NET Tool</strong></summary>
+
+A simple cross-platform dotnet tool that prevents your machine from sleeping until you press a key.
+
+Source: [`samples/Capjan.WakeLock.Tool`](./samples/Capjan.WakeLock.Tool)
 
 Install:
 
@@ -101,7 +103,7 @@ Run:
 wakelock
 ```
 
-The tool acquires a wake lock, prints the timestamp, and releases it on the next key press.
+Add --help to see all options.
 
 </details>
 
