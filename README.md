@@ -13,22 +13,6 @@ Cross-platform .NET wake lock libraries for preventing system sleep and, optiona
 ![WakeLock Use Case (AI Generated)](./assets/wakelock-use-case-doodle.jpg)  
 AI Generated: WakeLock Use Case Doodle
 
-## 2-Min Setup (dotnet tool)
-
-Install:
-
-```bash
-dotnet tool install --global Capjan.WakeLock.Tool
-```
-
-Run:
-
-```bash
-wakelock
-```
-
-The tool acquires a wake lock, prints the timestamp, and releases it on the next key press.
-
 ## Examples
 
 <details>
@@ -97,6 +81,29 @@ using var handle = wakeLock.Acquire(WakeLockLevel.PreventSleep);
 > - Dispose the service to release all active acquisitions.
 > - Use `WakeLockLevel.PreventSleepAndDisplay` if display sleep should be prevented too.
 > - Use [`Capjan.WakeLock.Abstractions`](https://www.nuget.org/packages/Capjan.WakeLock.Abstractions) if you only want the shared API (`IWakeLockService`, `WakeLockLevel`).
+
+## Samples
+
+Source: [`samples/Capjan.WakeLock.Tool`](./samples/Capjan.WakeLock.Tool)
+
+<details>
+<summary><strong>.NET tool</strong></summary>
+
+Install:
+
+```bash
+dotnet tool install --global Capjan.WakeLock.Tool
+```
+
+Run:
+
+```bash
+wakelock
+```
+
+The tool acquires a wake lock, prints the timestamp, and releases it on the next key press.
+
+</details>
 
 ## Building
 
